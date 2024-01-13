@@ -15,7 +15,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Install Dependencies
+      - name: npm install
         run: npm install
-      - name: Build
+      - name: npm run build
         run: npm run build
+      - name: docker build and push
+        env:
+          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
+          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+        run: |
+          echo $DOCKER_USERNAME | docker login -u $DOCKER_USERNAME --password-stdin
+          docker buildx create --use
+          docker buildx inspect
+          docker buildx build --platform linux/amd64,linux/arm64 -t zhangquanli/my-blog:latest .
+          docker push zhangquanli/my-blog:latest
