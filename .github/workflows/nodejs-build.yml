@@ -1,9 +1,11 @@
 name: Node.js Build
 
 on:
-  push:
-    branches:
-      - master
+  workflow_dispatch:
+    inputs:
+      parameter_name:
+        description: "输出参数的描述"
+        required: true
 
 jobs:
   build:
