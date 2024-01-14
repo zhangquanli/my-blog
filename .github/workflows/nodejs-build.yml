@@ -47,4 +47,4 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > ssh_key
           chmod 600 ssh_key
-          ssh -i ssh_key -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker stop my-blog; docker rm my-blog; docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
+          ssh -i ssh_key -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker stop my-blog; docker rm my-blog; docker pull zhangquanli/my-blog; docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
