@@ -9,7 +9,7 @@
  */
 module.exports = {
   siteMetadata: {
-    title: `剑锋所指`,
+    title: `小窗风雨`,
     author: {
       name: `zhangquanli`,
       summary: `一个卑微的软件工程师，前端、后端都会一点。喜欢折腾，研究技术。`
