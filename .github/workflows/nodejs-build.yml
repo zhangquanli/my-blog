@@ -13,22 +13,35 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 18
-      - name: npm install
+          node-version: '18'
+
+      - name: Install Dependencies
         run: npm install
-      - name: npm run build
+
+      - name: Build Project
         run: npm run build
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Build and Push Docker Image
+
+      - name: Build Docker Image
+        run: docker build -t zhangquanli/my-blog:latest .
+
+      - name: Log in to Docker Hub
+        run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push zhangquanli/my-blog:latest
+
+      - name: Deploy to Server
         env:
-          DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
-          DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+          SSH_HOST: ${{secrets.SSH_HOST}}
+          DEPLOY_PATH: ${{secrets.DEPLOY_PATH}}
+          SSH_USERNAME: ${{secrets.SSH_USERNAME}}
+          SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
-          echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-          docker buildx create --use
-          docker buildx inspect
-          docker buildx build --platform linux/amd64,linux/arm64 -t zhangquanli/my-blog:latest --push .
+          echo "$SSH_PRIVATE_KEY" > ssh_key
+          chmod 600 ssh_key
+          scp -i ssh_key docker-compose.yml $SSH_USERNAME@$SSH_HOST:$DEPLOY_PATH
+          ssh -i ssh_key $SSH_USERNAME@$SSH_HOST "docker-compose -f $DEPLOY_PATH/docker-compose.yml up -d"
