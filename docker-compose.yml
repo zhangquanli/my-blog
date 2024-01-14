@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  my-blog:
+    image: zhangquanli/my-blog:latest
+    ports:
+      - "80:80"
