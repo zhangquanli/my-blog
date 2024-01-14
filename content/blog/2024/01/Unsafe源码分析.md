@@ -1,3 +1,10 @@
+---
+title: Unsafe介绍
+date: "2024-01-14 15:25:55"
+description: "Unsafe介绍"
+---
+
+
 # Unsafe介绍
 
 在Oracle的jdk8无法获取到sun.misc包的源码，想看此包的源码可以直接下载openjdk，包的路径是：`openjdk\jdk\src\share\classes\sun\misc`。
