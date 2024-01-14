@@ -38,6 +38,10 @@ jobs:
           docker buildx inspect
           docker buildx build --platform linux/amd64,linux/arm64 -t zhangquanli/my-blog:latest --push .
 
+      - name: Update known_hosts
+        run: echo "$SSH_PRIVATE_KEY" | ssh-keyscan -H $SSH_HOST >> $HOME/.ssh/known_hosts
+        shell: /usr/bin/bash -e {0}
+
       - name: Deploy to Server
         env:
           SSH_HOST: ${{secrets.SSH_HOST}}
@@ -47,4 +51,4 @@ jobs:
         run: |
           echo "$SSH_PRIVATE_KEY" > ssh_key
           chmod 600 ssh_key
-          ssh -i ssh_key $SSH_USERNAME@$SSH_HOST "docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
+          ssh -i ssh_key -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
