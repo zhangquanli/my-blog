@@ -1,11 +1,9 @@
-name: Node.js Build
+name: 部署到云服务器
 
 on:
-  workflow_dispatch:
-    inputs:
-      parameter_name:
-        description: "输出参数的描述"
-        required: true
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -41,10 +39,9 @@ jobs:
       - name: Deploy to Server
         env:
           SSH_HOST: ${{secrets.SSH_HOST}}
-          DEPLOY_PATH: ${{secrets.DEPLOY_PATH}}
           SSH_USERNAME: ${{secrets.SSH_USERNAME}}
           SSH_PRIVATE_KEY: ${{secrets.SSH_PRIVATE_KEY}}
         run: |
           echo "$SSH_PRIVATE_KEY" > ssh_key
           chmod 600 ssh_key
-          ssh -i ssh_key -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker stop my-blog; docker rm my-blog; docker pull zhangquanli/my-blog; docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
+          ssh -i ssh_key -o StrictHostKeyChecking=no $SSH_USERNAME@$SSH_HOST "docker stop my-blog; docker rm my-blog; docker rmi zhangquanli/my-blog; docker pull zhangquanli/my-blog; docker run --name my-blog -p 80:80 -d zhangquanli/my-blog"
