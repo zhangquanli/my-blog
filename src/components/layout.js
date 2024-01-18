@@ -25,9 +25,10 @@ const Layout = ({ location, title, children }) => {
       <header className="global-header">{header}</header>
       <main>{children}</main>
       <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+          <a href="https://beian.miit.gov.cn/"
+             target="_blank" rel="noreferrer">渝ICP备2024020305号-1</a>
+        </div>
       </footer>
     </div>
   )
