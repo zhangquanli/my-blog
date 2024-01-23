@@ -24,7 +24,7 @@ jobs:
         run: npm run build
 
       - name: Create and Compress Tar Archive
-        run: tar -czvf public.tar.gz ./public/*
+        run: tar -czvf public.tar.gz ./public
 
       - name: Transfer Tar Archive to Server
         uses: appleboy/scp-action@master
@@ -43,5 +43,7 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             cd /usr/share/nginx/html
-            tar -xzvf public.tar.gz
-#            rm -rf public.tar.gz
+            tar -xzvf ./public.tar.gz
+            mv ./public/* ./*
+            rm -rf ./public
+            rm -rf ./public.tar.gz
