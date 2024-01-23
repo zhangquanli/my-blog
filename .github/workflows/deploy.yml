@@ -44,4 +44,4 @@ jobs:
           script: |
             cd /usr/share/nginx/html
             tar -xzvf ./public.tar.gz
-            mv ./public/* ./*
+            mv ./public/* ./
