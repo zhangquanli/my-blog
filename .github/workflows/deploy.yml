@@ -45,5 +45,3 @@ jobs:
             cd /usr/share/nginx/html
             tar -xzvf ./public.tar.gz
             mv ./public/* ./*
-            rm -rf ./public
-            rm -rf ./public.tar.gz
