@@ -43,5 +43,6 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             cd /usr/share/nginx/html
+            rm -rf ./*
             tar -xzvf ./public.tar.gz
             mv ./public/* ./
