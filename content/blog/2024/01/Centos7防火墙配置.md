@@ -1,7 +1,7 @@
 ---
-title: Centos7防火墙配置
+title: "Centos7防火墙配置"
 date: "2024-01-29 10:00:17"
-description: "Centos7防火墙配置"
+description: "Centos7防火墙，查询、开放、关闭端口"
 ---
 
 ## 1、查询`firewall`服务状态
