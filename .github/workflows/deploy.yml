@@ -26,6 +26,16 @@ jobs:
       - name: Create and Compress Tar Archive
         run: tar -czvf public.tar.gz ./public
 
+      - name: SSH into Server and Remove files
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{secrets.SSH_HOST}}
+          username: ${{secrets.SSH_USERNAME}}
+          key: ${{secrets.SSH_PRIVATE_KEY}}
+          script: |
+            cd /usr/share/nginx/html
+            rm -rf ./*
+
       - name: Transfer Tar Archive to Server
         uses: appleboy/scp-action@master
         with:
@@ -43,6 +53,5 @@ jobs:
           key: ${{secrets.SSH_PRIVATE_KEY}}
           script: |
             cd /usr/share/nginx/html
-            rm -rf ./*
             tar -xzvf ./public.tar.gz
             mv ./public/* ./
