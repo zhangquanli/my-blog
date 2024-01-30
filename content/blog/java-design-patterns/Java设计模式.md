@@ -1,6 +1,6 @@
 ---
 title: "Java设计模式"
-date: "2024-01-29 10:38:40"
+date: "2024-01-29 15:28:48"
 description: "Java设计模式分为三类：创建型、结构型和行为型设计模式。"
 ---
 
@@ -26,7 +26,7 @@ Java设计模式分为三类：创建型、结构型和行为型设计模式。
 
 单例模式限制了类的实例化，并确保在Java虚拟机中只存在一个类的实例。单例模式的实现一直是开发者之间具有争议性的话题。
 
-> 注意：了解更多关于[单例模式详情](https://zhangquanli.top/java-design-patterns/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)的信息。
+> 注意：了解更多关于[单例设计模式](https://zhangquanli.top/java-design-patterns/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/)的信息。
 
 ## 2. 工厂模式（Factory Pattern）
 
