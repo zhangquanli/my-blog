@@ -64,7 +64,7 @@ public class Test {
 incompatible types: java.util.List<java.lang.Integer> cannot be converted to java.util.List<java.lang.Number>
 ```
 
-幸运的是，有一种解决办法。`Java` 提供了一种特殊的参数化类型，称作有限制的通配符类型（`bounded wildcard type`），来处理类似的情况。`pushAll` 的输入参数类型不应该为“`E` 的 `Iterable` 接口”，而应该为“`E` 的某个子类型的 `Iterable` 接口”，有一个通配符类型证实符合此意：`Iterable<? Extends E>`。（使用关键字 `extends` 有些误导：确定子类型（`subtype`）后，每个类型便都是自身的子类型，即便它没有将自身扩展。）我们修改以下 `pushAll` 来使用这个类型：
+幸运的是，有一种解决办法。`Java` 提供了一种特殊的参数化类型，称作有限制的通配符类型（`bounded wildcard type`），来处理类似的情况。`pushAll` 的输入参数类型不应该为“`E` 的 `Iterable` 接口”，而应该为“`E` 的某个子类型的 `Iterable` 接口”，有一个通配符类型符合此意：`Iterable<? Extends E>`。（使用关键字 `extends` 有些误导：确定子类型（`subtype`）后，每个类型便都是自身的子类型，即便它没有将自身扩展。）我们修改以下 `pushAll` 来使用这个类型：
 
 ```java
 public void pushAll(Iterable<? extends E> src) {
